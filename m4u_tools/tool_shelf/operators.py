@@ -22,15 +22,15 @@ def remove_all_vg(obj):
         obj.vertex_groups.remove(vg)
 
 
-def remove_M4_armature(obj):
-    modifire_name = M4_SetWeight.modifire_name
+def remove_M4U_armature(obj):
+    modifire_name = M4U_SetWeight.modifire_name
     old_amature_mod = obj.modifiers.get(modifire_name)
     if old_amature_mod:
         obj.modifiers.remove(old_amature_mod)
 
 
 def create_vg(obj, name, armature_obj):
-    modifire_name = M4_SetWeight.modifire_name
+    modifire_name = M4U_SetWeight.modifire_name
 
     # 一旦すべての頂点グループを削除
     remove_all_vg(obj)
@@ -49,7 +49,7 @@ def create_vg(obj, name, armature_obj):
             obj.vertex_groups.new(name=re.sub(r'.R$', ".L", name))
 
         # 今あるArmatureモディファイアを一旦削除
-        remove_M4_armature(obj)
+        remove_M4U_armature(obj)
 
         # Armatureモディファイアを追加
         modifier = obj.modifiers.new(type="ARMATURE", name=modifire_name)
@@ -84,7 +84,7 @@ def find_bone_name(obj, arma):
         return None
 
 
-class M4_SetCenterOfObject(bpy.types.Operator):
+class M4U_SetCenterOfObject(bpy.types.Operator):
     bl_idname = "mech_model_tools.bone_set_center_of_object"
     bl_label = 'Set center of object (Global)'
 
@@ -112,7 +112,7 @@ class M4_SetCenterOfObject(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class M4_MirrorObject(bpy.types.Operator):
+class M4U_MirrorObject(bpy.types.Operator):
     bl_idname = "mech_model_tools.mirror_object"
     bl_label = 'Mirroring active object'
 
@@ -125,11 +125,11 @@ class M4_MirrorObject(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class M4_SetWeight(bpy.types.Operator):
+class M4U_SetWeight(bpy.types.Operator):
     bl_idname = "mech_model_tools.set_weight"
     bl_label = 'Set weight'
 
-    modifire_name = 'M4_Armature'
+    modifire_name = 'M4U_Armature'
 
     def loop_set_weight(self, obj, arma, arma_obj):
         if obj.type == 'MESH':
@@ -161,14 +161,14 @@ class M4_SetWeight(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class M4_UnsetWeight(bpy.types.Operator):
+class M4U_UnsetWeight(bpy.types.Operator):
     bl_idname = "mech_model_tools.unset_weight"
     bl_label = 'Unset weight'
 
     def loop_unset_weight(self, obj):
         if obj.type == 'MESH':
             remove_all_vg(obj)
-            remove_M4_armature(obj)
+            remove_M4U_armature(obj)
 
         for c in obj.children:
             self.loop_unset_weight(c)
@@ -187,10 +187,10 @@ class M4_UnsetWeight(bpy.types.Operator):
 
 
 classes = [
-    M4_SetCenterOfObject,
-    M4_MirrorObject,
-    M4_SetWeight,
-    M4_UnsetWeight,
+    M4U_SetCenterOfObject,
+    M4U_MirrorObject,
+    M4U_SetWeight,
+    M4U_UnsetWeight,
 ]
 
 

@@ -16,11 +16,11 @@ def layout_armature(col, prop_target, amature_prop_name, bone_prop_name=None):
 
 class MechTab(object):
     bl_space_type = 'VIEW_3D'
-    bl_region_type = 'TOOLS'
-    bl_category = 'M4'
+    bl_region_type = 'UI'
+    bl_category = 'M4U'
 
 
-class M4_Panel_Mesh(MechTab, bpy.types.Panel):
+class M4U_PT_Mesh(MechTab, bpy.types.Panel):
     bl_idname = 'mech_model_tools.panel_mesh'
     bl_label = 'Mesh'
     bl_context = 'mesh_edit'
@@ -32,10 +32,10 @@ class M4_Panel_Mesh(MechTab, bpy.types.Panel):
             scene = context.scene
             mech_model = scene.mech_model
 
-            layout.operator(M4_FlattenEachFaces.bl_idname)
+            layout.operator(M4U_FlattenEachFaces.bl_idname)
 
 
-class M4_Panel_Bone(MechTab, bpy.types.Panel):
+class M4U_PT_Bone(MechTab, bpy.types.Panel):
     bl_idname = 'mech_model_tools.panel_bone'
     bl_label = 'Bone'
     bl_context = 'objectmode'
@@ -49,10 +49,10 @@ class M4_Panel_Bone(MechTab, bpy.types.Panel):
         layout_armature(col, mech_model,
                         "set_bone_armature_name", "set_bone_bone_name")
 
-        layout.operator(M4_SetCenterOfObject.bl_idname)
+        layout.operator(M4U_SetCenterOfObject.bl_idname)
 
 
-class M4_Panel_Mirror(MechTab, bpy.types.Panel):
+class M4U_PT_Mirror(MechTab, bpy.types.Panel):
     bl_idname = 'mech_model_tools.panel_mirror'
     bl_label = 'Mirror'
     bl_context = 'objectmode'
@@ -61,10 +61,10 @@ class M4_Panel_Mirror(MechTab, bpy.types.Panel):
         layout = self.layout
         scene = context.scene
 
-        layout.operator(M4_MirrorObject.bl_idname)
+        layout.operator(M4U_MirrorObject.bl_idname)
 
 
-class M4_Panel_Weight(MechTab, bpy.types.Panel):
+class M4U_PT_Weight(MechTab, bpy.types.Panel):
     bl_idname = 'mech_model_tools.panel_weight'
     bl_label = 'Weight'
     bl_context = 'objectmode'
@@ -77,14 +77,14 @@ class M4_Panel_Weight(MechTab, bpy.types.Panel):
         col = layout.column()
         layout_armature(col, mech_model, "set_weight_armature_name")
 
-        layout.operator(M4_SetWeight.bl_idname)
-        layout.operator(M4_UnsetWeight.bl_idname)
+        layout.operator(M4U_SetWeight.bl_idname)
+        layout.operator(M4U_UnsetWeight.bl_idname)
 
 
 classes = [
-    M4_Panel_Bone,
-    M4_Panel_Mirror,
-    M4_Panel_Weight,
+    M4U_PT_Bone,
+    M4U_PT_Mirror,
+    M4U_PT_Weight,
 ]
 
 
