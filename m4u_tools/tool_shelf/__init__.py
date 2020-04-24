@@ -8,10 +8,10 @@ importlib.reload(panels)
 
 
 def register():
-  operators.register()
-  panels.register()
+    operators.register()
+    panels.register()
+
 
 def unregister():
-  operators.unregister()
-  panels.unregister()
-
+    operators.unregister()
+    panels.unregister()
